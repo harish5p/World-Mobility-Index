@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
 import nasdaqdatalink
-import altair as alt
+
 
 # Get the mobility data
 df_apple = pd.read_csv('https://raw.githubusercontent.com/ActiveConclusion/COVID19_mobility/master/apple_reports/applemobilitytrends.csv')
@@ -78,20 +78,13 @@ prices_df = prices_df[prices_df.index.isin(df_index.index)]
 # """Combine df_index and prices_df"""
 df_index = df_index.join(prices_df)
 
-df_index['date'] = dates
 
 # Rename column
-df_index.columns = ['world_mobility_index', 'oil_price', 'date']
+df_index.columns = ['world_mobility_index', 'oil_price']
 
-
-
-index_chart = alt.Chart(df_index).mark_line().encode(x='date' ,y='world_mobility_index')
-price_chart = alt.Chart(df_index).mark_line().encode(x='date' ,y='oil_price')
-
-combined_chart = alt.layer(index_chart, price_chart)
 st.title("World Mobility Index weighted by oil consumption")
 # Line chart
-st.altair_chart(combined_chart)
+st.line_chart(df_index)
 
 
 
