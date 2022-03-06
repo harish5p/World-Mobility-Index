@@ -81,7 +81,7 @@ df_index = df_index.join(prices_df)
 df_index['date'] = dates
 
 # Rename column
-df_index.columns = ['world_mobility_index', 'oil_price', 'date]
+df_index.columns = ['world_mobility_index', 'oil_price', 'date']
 
 
 
