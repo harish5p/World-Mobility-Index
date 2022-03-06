@@ -63,6 +63,11 @@ df_index = df.dot(oil_consumption)
 #"""Convert to 7 day moving average"""
 df_index = df_index.rolling(7).mean()
 
+# Convert to df
+df_index = pd.DataFrame(df_index)
+# Rename column
+df_index.columns = ['world_mobility_index']
+
 # """Get the EOD price of oil"""
 prices_df = nasdaqdatalink.get("OPEC/ORB", authtoken=st.secrets["quandl_key"])
 
@@ -70,9 +75,13 @@ prices_df = nasdaqdatalink.get("OPEC/ORB", authtoken=st.secrets["quandl_key"])
 prices_df = prices_df[prices_df.index.isin(df_index.index)]
 
 
+# """Combine df_index and prices_df"""
+df_index = df_index.join(prices_df)
+
+
 st.title("World Mobility Index weighted by oil consumption of each country")
 # Line chart
-st.line_chart(pd.DataFrame(df_index, prices_df))
+st.line_chart(df_index)
 
 
 
