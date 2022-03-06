@@ -59,5 +59,10 @@ df = df.set_index('date')
 
 # """add a new column as world_mobility_index which is the dot product of oil_consumption and df"""
 df_index = df.dot(oil_consumption)
+"""Convert to 7 day moving average"""
+df_index = df_index.rolling(7).mean()
+
+
+st.title("World Mobility Index weighted by oil consumption of each country")
 # Line chart
 st.line_chart(df_index)
