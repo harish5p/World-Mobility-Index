@@ -1,4 +1,4 @@
 pandas
 streamlit
 Nasdaq-Data-Link
-altair
+
