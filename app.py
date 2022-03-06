@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+import nasdaqdatalink
 
 # Get the mobility data
 df_apple = pd.read_csv('https://raw.githubusercontent.com/ActiveConclusion/COVID19_mobility/master/apple_reports/applemobilitytrends.csv')
@@ -62,7 +63,16 @@ df_index = df.dot(oil_consumption)
 #"""Convert to 7 day moving average"""
 df_index = df_index.rolling(7).mean()
 
+# """Get the EOD price of oil"""
+prices_df = nasdaqdatalink.get("OPEC/ORB", authtoken=st.secrets["quandl_key"])
 
-st.title("World Mobility Index weighted by oil consumption")
+# """Filter the df to only include dates in df_index"""
+prices_df = prices_df[prices_df.index.isin(df_index.index)]
+
+
+st.title("World Mobility Index weighted by oil consumption of each country")
 # Line chart
-st.line_chart(df_index)
+st.line_chart(pd.DataFrame(df_index, prices_df))
+
+
+
