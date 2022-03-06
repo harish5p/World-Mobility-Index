@@ -78,12 +78,15 @@ prices_df = prices_df[prices_df.index.isin(df_index.index)]
 # """Combine df_index and prices_df"""
 df_index = df_index.join(prices_df)
 
+df_index['date'] = dates
+
 # Rename column
-df_index.columns = ['world_mobility_index', 'oil_price']
+df_index.columns = ['world_mobility_index', 'oil_price', 'date]
 
 
-index_chart = alt.Chart(df_index).mark_line().encode(x=df_index.index,y='world_mobility_index')
-price_chart = alt.Chart(df_index).mark_line().encode(x=df_index.index,y='oil_price')
+
+index_chart = alt.Chart(df_index).mark_line().encode(x='date' ,y='world_mobility_index')
+price_chart = alt.Chart(df_index).mark_line().encode(x='date' ,index,y='oil_price')
 
 combined_chart = alt.layer(index_chart, price_chart)
 st.title("World Mobility Index weighted by oil consumption")
