@@ -82,13 +82,13 @@ df_index = df_index.join(prices_df)
 df_index.columns = ['world_mobility_index', 'oil_price']
 
 
-index_chart = alt.Chart(df_index).mark_line().encode(x='date', y='world_mobility_index')
-price_chart = alt.Chart(df_index).mark_line().encode(x='date', y='oil_price')
+index_chart = alt.Chart(df_index).mark_line().encode(y='world_mobility_index')
+price_chart = alt.Chart(df_index).mark_line().encode(y='oil_price')
 
 combined_chart = alt.layer(index_chart, price_chart)
 st.title("World Mobility Index weighted by oil consumption")
 # Line chart
-st.altair_chart(index_chart)
+st.altair_chart(combined_chart)
 
 
 
