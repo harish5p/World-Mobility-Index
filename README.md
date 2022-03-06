@@ -3,3 +3,5 @@
 World Mobility Index weighted by their Oil consumption
 
 These countries combined account for 71742 thousand barrels per day,which is 73.5077 % of Total world consumption in 2019. It is assumed that the oil demand remains same over the years
+
+Data for oil consumption is taken from https://www.bp.com/en/global/corporate/energy-economics/statistical-review-of-world-energy.html
